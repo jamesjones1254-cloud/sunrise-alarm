@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sunrise"
+            android:textColor="@color/text"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:lineSpacingExtra="2dp"
+            android:textColor="@color/text_muted"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/card_bg"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:textColor="@color/text"
+            android:textSize="64sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:text="Wake-up time (full light). Tap to change."
+            android:textColor="@color/text_muted"
+            android:textSize="13sp" />
+
+        <Switch
+            android:id="@+id/enabled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Alarm on"
+            android:textColor="@color/text"
+            android:textSize="18sp" />
+
+        <TextView style="@style/Label" android:text="Sunrise length" />
+
+        <RadioGroup
+            android:id="@+id/sunrise_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/sunrise_10" style="@style/Choice" android:text="10 min" />
+            <RadioButton android:id="@+id/sunrise_20" style="@style/Choice" android:text="20 min" />
+            <RadioButton android:id="@+id/sunrise_30" style="@style/Choice" android:text="30 min" />
+        </RadioGroup>
+
+        <TextView style="@style/Label" android:text="Snooze length" />
+
+        <RadioGroup
+            android:id="@+id/snooze_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/snooze_5" style="@style/Choice" android:text="5 min" />
+            <RadioButton android:id="@+id/snooze_9" style="@style/Choice" android:text="9 min" />
+            <RadioButton android:id="@+id/snooze_10" style="@style/Choice" android:text="10 min" />
+        </RadioGroup>
+
+        <TextView style="@style/Label" android:text="Repeat" />
+
+        <RadioGroup
+            android:id="@+id/repeat_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton android:id="@+id/repeat_daily" style="@style/Choice" android:text="Every day" />
+            <RadioButton android:id="@+id/repeat_weekdays" style="@style/Choice" android:text="Weekdays" />
+            <RadioButton android:id="@+id/repeat_once" style="@style/Choice" android:text="Once" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/warnings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical" />
+
+        <Button
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/btn_primary"
+            android:stateListAnimator="@null"
+            android:text="Preview the sunrise (45 seconds)"
+            android:textAllCaps="false"
+            android:textColor="#FF2A140A"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:lineSpacingExtra="3dp"
+            android:text="Leave your phone plugged in and facing you. The screen fades from black through red and orange to warm daylight, reaching full brightness at your wake-up time. Birdsong and chimes fade in over the last couple of minutes. Snooze silences the sound but keeps the light on."
+            android:textColor="@color/text_muted"
+            android:textSize="14sp" />
+    </LinearLayout>
+</ScrollView>

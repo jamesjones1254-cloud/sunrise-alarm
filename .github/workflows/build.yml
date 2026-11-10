@@ -1,0 +1,55 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build signed APK
+        shell: bash
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --stacktrace 2>&1 | tee build.log
+
+      - name: Publish APK as the "latest" release
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk Sunrise.apk
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest Sunrise.apk \
+            --title "Sunrise build ${{ github.run_number }}" \
+            --notes "Open this page on your Android phone and tap Sunrise.apk to download and install." \
+            --target "${{ github.sha }}"
+
+      - name: Save build log to the ci-log branch
+        if: always()
+        shell: bash
+        run: |
+          cp build.log /tmp/build.log 2>/dev/null || echo "no build log" > /tmp/build.log
+          echo "${{ job.status }} run=${{ github.run_number }} sha=${{ github.sha }}" > /tmp/status.txt
+          git config user.name "build-bot"
+          git config user.email "build-bot@users.noreply.github.com"
+          git checkout --orphan ci-log
+          git rm -rfq --cached .
+          cp /tmp/build.log /tmp/status.txt .
+          git add build.log status.txt
+          git commit -qm "Build log ${{ github.run_number }}"
+          git push -f origin ci-log
